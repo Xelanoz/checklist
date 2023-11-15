@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packing List Generator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+    <style>
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Packing List Generator</h1>
+
+    <form id="packingForm">
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" required>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" required>
+
+        <label>Items to Pack:</label>
+        <input type="checkbox" id="item1" value="Toothbrush">
+        <label for="item1">Toothbrush</label>
+
+        <input type="checkbox" id="item2" value="Clothes">
+        <label for="item2">Clothes</label>
+
+        <input type="checkbox" id="item3" value="Shoes">
+        <label for="item3">Shoes</label>
+
+        <button type="button" onclick="addItem()">Add Item</button>
+    </form>
+
+    <h2>Current Packing List</h2>
+    <ul id="packingList"></ul>
+
+    <script>
+        function addItem() {
+            // Récupérer les valeurs du formulaire
+            var itemName = document.getElementById("itemName").value;
+            var quantity = document.getElementById("quantity").value;
+
+            // Vérifier si les champs sont vides
+            if (itemName === "" || quantity === "") {
+                alert("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            // Vérifier les cases à cocher sélectionnées
+            var itemsToPack = document.querySelectorAll('input[type="checkbox"]:checked');
+            var itemsList = "";
+
+            // Construire la liste d'articles à emballer
+            itemsToPack.forEach(function(item) {
+                itemsList += item.value + ", ";
+            });
+
+            // Ajouter l'élément et la liste à la liste d'emballage
+            var packingList = document.getElementById("packingList");
+            var listItem = document.createElement("li");
+            listItem.textContent = itemName + " - Quantity: " + quantity + " - Items: " + itemsList.slice(0, -2);
+            packingList.appendChild(listItem);
+
+            // Effacer les champs du formulaire
+            document.getElementById("itemName").value = "";
+            document.getElementById("quantity").value = "";
+
+            // Désélectionner les cases à cocher
+            itemsToPack.forEach(function(item) {
+                item.checked = false;
+            });
+        }
+    </script>
+
+</body>
+</html>

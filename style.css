@@ -1,0 +1,8 @@
+form {
+    display: grid;
+    justify-content: start;
+    gap: 10px;
+}
+li {
+    list-style-type: none;
+}
